@@ -1,10 +1,8 @@
-# Private fork of noble library
+## Private fork of noble library
+
+- Added private pairing (bonding) from projectbtle user
 
 # ![noble](assets/noble-logo.png)
-
-[![Build Status](https://travis-ci.org/noble/noble.svg?branch=master)](https://travis-ci.org/noble/noble)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sandeepmistry/noble?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![OpenCollective](https://opencollective.com/noble/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/noble/sponsors/badge.svg)](#sponsors)
 
 A Node.js BLE (Bluetooth Low Energy) central module.
 
@@ -103,13 +101,13 @@ You need to stop scanning before trying to connect in order to solve this issue.
 ## Install
 
 ```sh
-npm install @abandonware/noble
+npm install @wolnik/noble
 ```
 
 ## Usage
 
 ```javascript
-var noble = require("@abandonware/noble");
+var noble = require("@wolnik/noble");
 ```
 
 ### Actions
