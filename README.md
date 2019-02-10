@@ -1,26 +1,27 @@
+# Private fork of noble library
+
 # ![noble](assets/noble-logo.png)
 
 [![Build Status](https://travis-ci.org/noble/noble.svg?branch=master)](https://travis-ci.org/noble/noble)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sandeepmistry/noble?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![OpenCollective](https://opencollective.com/noble/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/noble/sponsors/badge.svg)](#sponsors)
 
-
 A Node.js BLE (Bluetooth Low Energy) central module.
 
 Want to implement a peripheral? Checkout [bleno](https://github.com/sandeepmistry/bleno)
 
-__Note:__ macOS / Mac OS X, Linux, FreeBSD and Windows are currently the only supported OSes. Other platforms may be developed later on.
+**Note:** macOS / Mac OS X, Linux, FreeBSD and Windows are currently the only supported OSes. Other platforms may be developed later on.
 
 ## Prerequisites
 
 ### OS X
 
- * install [Xcode](https://itunes.apple.com/ca/app/xcode/id497799835?mt=12)
+- install [Xcode](https://itunes.apple.com/ca/app/xcode/id497799835?mt=12)
 
 ### Linux
 
- * Kernel version 3.6 or above
- * ```libbluetooth-dev```
+- Kernel version 3.6 or above
+- `libbluetooth-dev`
 
 #### Ubuntu/Debian/Raspbian
 
@@ -28,9 +29,10 @@ __Note:__ macOS / Mac OS X, Linux, FreeBSD and Windows are currently the only su
 sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
 ```
 
-Make sure ```node``` is on your path, if it's not, some options:
- * symlink ```nodejs``` to ```node```: ```sudo ln -s /usr/bin/nodejs /usr/bin/node```
- * [install Node.js using the NodeSource package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
+Make sure `node` is on your path, if it's not, some options:
+
+- symlink `nodejs` to `node`: `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+- [install Node.js using the NodeSource package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
 
 #### Fedora / Other-RPM based
 
@@ -50,15 +52,15 @@ Make sure you have GNU Make:
 sudo pkg install gmake
 ```
 
-Disable automatic loading of the default Bluetooth stack by putting [no-ubt.conf](https://gist.github.com/myfreeweb/44f4f3e791a057bc4f3619a166a03b87) into ```/usr/local/etc/devd/no-ubt.conf``` and restarting devd (```sudo service devd restart```).
+Disable automatic loading of the default Bluetooth stack by putting [no-ubt.conf](https://gist.github.com/myfreeweb/44f4f3e791a057bc4f3619a166a03b87) into `/usr/local/etc/devd/no-ubt.conf` and restarting devd (`sudo service devd restart`).
 
-Unload ```ng_ubt``` kernel module if already loaded:
+Unload `ng_ubt` kernel module if already loaded:
 
 ```sh
 sudo kldunload ng_ubt
 ```
 
-Make sure you have read and write permissions on the ```/dev/usb/*``` device that corresponds to your Bluetooth adapter.
+Make sure you have read and write permissions on the `/dev/usb/*` device that corresponds to your Bluetooth adapter.
 
 ### Windows
 
@@ -71,8 +73,9 @@ npm install --global --production windows-build-tools
 ```
 
 [node-bluetooth-hci-socket prerequisites](https://github.com/sandeepmistry/node-bluetooth-hci-socket#windows)
-   * Compatible Bluetooth 4.0 USB adapter
-   * [WinUSB](https://msdn.microsoft.com/en-ca/library/windows/hardware/ff540196(v=vs.85).aspx) driver setup for Bluetooth 4.0 USB adapter, using [Zadig tool](http://zadig.akeo.ie/)
+
+- Compatible Bluetooth 4.0 USB adapter
+- [WinUSB](<https://msdn.microsoft.com/en-ca/library/windows/hardware/ff540196(v=vs.85).aspx>) driver setup for Bluetooth 4.0 USB adapter, using [Zadig tool](http://zadig.akeo.ie/)
 
 See [@don](https://github.com/don)'s set up guide on [Bluetooth LE with Node.js and Noble on Windows](https://www.youtube.com/watch?v=mL9B8wuEdms&feature=youtu.be&t=1m46s)
 
@@ -82,9 +85,9 @@ See [@don](https://github.com/don)'s set up guide on [Bluetooth LE with Node.js 
 
 This limit is imposed upon by the Bluetooth adapter hardware as well as it's firmware.
 
-| Platform |     |
-| :------- | --- |
-| OS X 10.11 (El Capitan) | 6 |
+| Platform                          |                       |
+| :-------------------------------- | --------------------- |
+| OS X 10.11 (El Capitan)           | 6                     |
 | Linux/Windows - Adapter dependent | 5 (CSR based adapter) |
 
 ### Adapter specific known issues
@@ -106,7 +109,7 @@ npm install @abandonware/noble
 ## Usage
 
 ```javascript
-var noble = require('@abandonware/noble');
+var noble = require("@abandonware/noble");
 ```
 
 ### Actions
@@ -126,7 +129,7 @@ var allowDuplicates = <false|true>; // default: false
 noble.startScanning(serviceUUIDs, allowDuplicates[, callback(error)]); // particular UUID's
 ```
 
-__NOTE:__ ```noble.state``` must be ```poweredOn``` before scanning is started. ```noble.on('stateChange', callback(state));``` can be used register for state change events.
+**NOTE:** `noble.state` must be `poweredOn` before scanning is started. `noble.on('stateChange', callback(state));` can be used register for state change events.
 
 #### Stop scanning
 
@@ -166,7 +169,9 @@ peripheral.discoverServices(serviceUUIDs[, callback(error, services)]); // parti
 ##### Discover all services and characteristics
 
 ```javascript
-peripheral.discoverAllServicesAndCharacteristics([callback(error, services, characteristics)]);
+peripheral.discoverAllServicesAndCharacteristics([
+  callback(error, services, characteristics)
+]);
 ```
 
 ##### Discover some services and characteristics
@@ -176,6 +181,7 @@ var serviceUUIDs = ["<service UUID 1>", ...];
 var characteristicUUIDs = ["<characteristic UUID 1>", ...];
 peripheral.discoverSomeServicesAndCharacteristics(serviceUUIDs, characteristicUUIDs, [callback(error, services, characteristics));
 ```
+
 #### Service
 
 ##### Discover included services
@@ -210,9 +216,9 @@ characteristic.read([callback(error, data)]);
 characteristic.write(data, withoutResponse[, callback(error)]); // data is a buffer, withoutResponse is true|false
 ```
 
-* ```withoutResponse```:
-  * ```false```: send a write request, used with "write" characteristic property
-  * ```true```: send a write command, used with "write without response" characteristic property
+- `withoutResponse`:
+  - `false`: send a write request, used with "write" characteristic property
+  - `true`: send a write command, used with "write without response" characteristic property
 
 ##### Broadcast
 
@@ -226,8 +232,8 @@ characteristic.broadcast(broadcast[, callback(error)]); // broadcast is true|fal
 characteristic.subscribe([callback(error)]);
 ```
 
-  * subscribe to a characteristic, triggers `'data'` events when peripheral sends an notification or indication
-  * use for characteristics with notify or indicate properties
+- subscribe to a characteristic, triggers `'data'` events when peripheral sends an notification or indication
+- use for characteristics with notify or indicate properties
 
 ##### Unsubscribe
 
@@ -235,8 +241,8 @@ characteristic.subscribe([callback(error)]);
 characteristic.unsubscribe([callback(error)]);
 ```
 
-  * unsubscribe to a characteristic
-  * use for characteristics with notify or indicate properties
+- unsubscribe to a characteristic
+- use for characteristics with notify or indicate properties
 
 ##### Discover descriptors
 
@@ -285,7 +291,7 @@ noble.on('stateChange', callback(state));
 #### Scan started:
 
 ```javascript
-noble.on('scanStart', callback);
+noble.on("scanStart", callback);
 ```
 
 The event is emitted when scanning is started or if another application enables scanning or changes scanning settings.
@@ -293,7 +299,7 @@ The event is emitted when scanning is started or if another application enables 
 #### Scan stopped
 
 ```javascript
-noble.on('scanStop', callback);
+noble.on("scanStop", callback);
 ```
 
 The event is emitted when scanning is stopped or if another application stops scanning.
@@ -326,12 +332,12 @@ peripheral = {
 noble.on('discover', callback(peripheral));
 ```
 
-__Note:__ on OS X the address will be set to 'unknown' if the device has not been connected previously.
+**Note:** on OS X the address will be set to 'unknown' if the device has not been connected previously.
 
 #### Warnings
 
 ```javascript
-noble.on('warning', callback(message));
+noble.on("warning", callback(message));
 ```
 
 #### Peripheral
@@ -339,25 +345,25 @@ noble.on('warning', callback(message));
 ##### Connected
 
 ```javascript
-peripheral.once('connect', callback);
+peripheral.once("connect", callback);
 ```
 
 ##### Disconnected:
 
 ```javascript
-peripheral.once('disconnect', callback);
+peripheral.once("disconnect", callback);
 ```
 
 ##### RSSI update
 
 ```javascript
-peripheral.once('rssiUpdate', callback(rssi));
+peripheral.once("rssiUpdate", callback(rssi));
 ```
 
 ##### Services discovered
 
 ```javascript
-peripheral.once('servicesDiscover', callback(services));
+peripheral.once("servicesDiscover", callback(services));
 ```
 
 #### Service
@@ -365,7 +371,7 @@ peripheral.once('servicesDiscover', callback(services));
 ##### Included services discovered
 
 ```javascript
-service.once('includedServicesDiscover', callback(includedServiceUuids));
+service.once("includedServicesDiscover", callback(includedServiceUuids));
 ```
 
 ##### Characteristics discovered
@@ -384,48 +390,48 @@ service.once('characteristicsDiscover', callback(characteristics));
 
 ##### Data
 
-Emitted when characteristic read has completed, result of ```characteristic.read(...)``` or characteristic value has been updated by peripheral via notification or indication - after having been enabled with ```notify(true[, callback(error)])```.
+Emitted when characteristic read has completed, result of `characteristic.read(...)` or characteristic value has been updated by peripheral via notification or indication - after having been enabled with `notify(true[, callback(error)])`.
 
 ```javascript
-characteristic.on('data', callback(data, isNotification));
+characteristic.on("data", callback(data, isNotification));
 
-characteristic.once('read', callback(data, isNotification)); // legacy
+characteristic.once("read", callback(data, isNotification)); // legacy
 ```
 
 **Note:** `isNotification` event parameter value MAY be `undefined` depending on platform support. The parameter is **deprecated** after version 1.8.1, and not supported when on macOS High Sierra and later.
 
 ##### Write
 
-Emitted when characteristic write has completed, result of ```characteristic.write(...)```.
+Emitted when characteristic write has completed, result of `characteristic.write(...)`.
 
 ```javascript
-characteristic.once('write', withoutResponse, callback());
+characteristic.once("write", withoutResponse, callback());
 ```
 
 ##### Broadcast
 
-Emitted when characteristic broadcast state changes, result of ```characteristic.broadcast(...)```.
+Emitted when characteristic broadcast state changes, result of `characteristic.broadcast(...)`.
 
 ```javascript
-characteristic.once('broadcast', callback(state));
+characteristic.once("broadcast", callback(state));
 ```
 
 ##### Notify
 
-Emitted when characteristic notification state changes, result of ```characteristic.notify(...)```.
+Emitted when characteristic notification state changes, result of `characteristic.notify(...)`.
 
 ```javascript
-characteristic.once('notify', callback(state));
+characteristic.once("notify", callback(state));
 ```
 
 ##### Descriptors discovered
 
 ```javascript
 descriptor = {
-  uuid: '<uuid>'
+  uuid: "<uuid>"
 };
 
-characteristic.once('descriptorsDiscover', callback(descriptors));
+characteristic.once("descriptorsDiscover", callback(descriptors));
 ```
 
 #### Descriptor
@@ -433,13 +439,13 @@ characteristic.once('descriptorsDiscover', callback(descriptors));
 ##### Value read
 
 ```javascript
-descriptor.once('valueRead', data);
+descriptor.once("valueRead", data);
 ```
 
 ##### Value write
 
 ```javascript
-descriptor.once('valueWrite');
+descriptor.once("valueWrite");
 ```
 
 ## Running on Linux
@@ -452,18 +458,18 @@ Run the following command:
 sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
 ```
 
-This grants the ```node``` binary ```cap_net_raw``` privileges, so it can start/stop BLE advertising.
+This grants the `node` binary `cap_net_raw` privileges, so it can start/stop BLE advertising.
 
-__Note:__ The above command requires ```setcap``` to be installed, it can be installed using the following:
+**Note:** The above command requires `setcap` to be installed, it can be installed using the following:
 
- * apt: ```sudo apt-get install libcap2-bin```
- * yum: ```su -c \'yum install libcap2-bin\'```
+- apt: `sudo apt-get install libcap2-bin`
+- yum: `su -c \'yum install libcap2-bin\'`
 
 ### Multiple Adapters
 
-```hci0``` is used by default to override set the ```NOBLE_HCI_DEVICE_ID``` environment variable to the interface number.
+`hci0` is used by default to override set the `NOBLE_HCI_DEVICE_ID` environment variable to the interface number.
 
-Example, specify ```hci1```:
+Example, specify `hci1`:
 
 ```sh
 sudo NOBLE_HCI_DEVICE_ID=1 node <your file>.js
@@ -473,19 +479,17 @@ sudo NOBLE_HCI_DEVICE_ID=1 node <your file>.js
 
 By default noble waits for both the advertisement data and scan response data for each Bluetooth address. If your device does not use scan response the following environment variable can be used to bypass it.
 
-
 ```sh
 sudo NOBLE_REPORT_ALL_HCI_EVENTS=1 node <your file>.js
 ```
 
 ### bleno compatibility
 
-By default noble will respond with an error whenever a GATT request message is received. If your intention is to use bleno in tandem with noble, the following environment variable can be used to bypass this functionality. __Note:__ this requires a Bluetooth 4.1 adapter.
+By default noble will respond with an error whenever a GATT request message is received. If your intention is to use bleno in tandem with noble, the following environment variable can be used to bypass this functionality. **Note:** this requires a Bluetooth 4.1 adapter.
 
 ```sh
 sudo NOBLE_MULTI_ROLE=1 node <your file>.js
 ```
-
 
 ## Advanced usage
 
@@ -494,7 +498,7 @@ sudo NOBLE_MULTI_ROLE=1 node <your file>.js
 By default, noble will select bindings to communicate with Bluetooth devices depending on your platform. If you prefer to specify what bindings noble should use:
 
 ```javascript
-var noble = require('noble/with-bindings')(require('./my-custom-bindings'));
+var noble = require("noble/with-bindings")(require("./my-custom-bindings"));
 ```
 
 ## Backers
@@ -569,9 +573,9 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 
 ## Useful Links
 
- * [Bluetooth Development Portal](http://developer.bluetooth.org)
-   * [GATT Specifications](http://developer.bluetooth.org/gatt/Pages/default.aspx)
- * [Bluetooth: ATT and GATT](http://epx.com.br/artigos/bluetooth_gatt.php)
+- [Bluetooth Development Portal](http://developer.bluetooth.org)
+  - [GATT Specifications](http://developer.bluetooth.org/gatt/Pages/default.aspx)
+- [Bluetooth: ATT and GATT](http://epx.com.br/artigos/bluetooth_gatt.php)
 
 ## License
 
